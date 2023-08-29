@@ -1,0 +1,59 @@
+import requests
+
+def check_blob_existence(blob_url):
+    try:
+        response = requests.get(blob_url, timeout=5)
+        if response.status_code == 200:
+            return True
+        elif response.status_code == 404:
+            return False
+        else:
+            return False
+
+    except requests.ConnectionError:
+        return False
+
+if __name__ == "__main__":
+    base_domain = input("Storage Name: ")
+    container_name = input("Container name: ")
+    blob_names_file = "blob_names.txt"
+
+    with open(blob_names_file, "r") as file:
+        blob_names = file.read().splitlines()
+
+    for blob_name in blob_names:
+        blob_url = f"https://{base_domain}.blob.core.windows.net/{container_name}/{blob_name}"
+        if check_blob_existence(blob_url):
+            print(f"Blob Público '{blob_name}' encontrado na '{blob_url}'.")
+        else:
+            print(f"Blob '{blob_name}' não encontrado.")
+
+import requests
+
+def check_blob_existence(blob_url):
+    try:
+        response = requests.get(blob_url, timeout=5)
+        if response.status_code == 200:
+            return True
+        elif response.status_code == 404:
+            return False
+        else:
+            return False
+
+    except requests.ConnectionError:
+        return False
+
+if __name__ == "__main__":
+    base_domain = input("Enter the base domain: ")
+    container_name = input("Enter the container name: ")
+    blob_names_file = "blob_names.txt"
+
+    with open(blob_names_file, "r") as file:
+        blob_names = file.read().splitlines()
+
+    for blob_name in blob_names:
+        blob_url = f"https://{base_domain}.blob.core.windows.net/{container_name}/{blob_name}"
+        if check_blob_existence(blob_url):
+            print(f"Blob '{blob_name}' found at '{blob_url}'.")
+        else:
+            print(f"Blob '{blob_name}' not found at '{blob_url}'.")
